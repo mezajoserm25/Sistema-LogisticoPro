@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lo de Cintya - Packing List</title>
+    <!-- Tailwind CSS para los estilos responsivos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome para los íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- jsPDF y html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <style>
+        body { background-color: #f0f4f8; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .btn-blue { background-color: #2f4f7d; color: white; transition: 0.2s; }
+        .btn-blue:active { background-color: #1e3a63; transform: scale(0.98); }
+        .btn-orange { background-color: #d97736; color: white; transition: 0.2s; }
+        .btn-orange:active { background-color: #b85a1e; transform: scale(0.98); }
+        .btn-red { background-color: #df444b; color: white; transition: 0.2s; }
+        .btn-red:active { background-color: #b82a30; transform: scale(0.98); }
+        .btn-gold { background-color: #d49e35; color: white; transition: 0.2s; }
+        .btn-gold:active { background-color: #b38222; transform: scale(0.98); }
+        .btn-green { background-color: #288351; color: white; transition: 0.2s; }
+        .btn-green:active { background-color: #1d663e; transform: scale(0.98); }
+        .text-header { color: #5a738e; }
+        .card-shadow { box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="p-3 sm:p-6">
+
+    <!-- BARRA SUPERIOR -->
+    <header class="max-w-[1300px] mx-auto mb-4 sm:mb-6 bg-[#2f4f7d] text-white px-4 sm:px-6 py-3 sm:py-4 rounded-lg shadow-md flex justify-between items-center">
+        <div>
+            <h1 class="text-lg sm:text-2xl font-black tracking-wide">Lo de Cintya</h1>
+            <p class="text-[10px] sm:text-xs text-blue-200">Packing List y Despachos</p>
+        </div>
+        <div class="text-right">
+            <span class="text-[10px] sm:text-xs bg-blue-900 px-2 sm:px-3 py-1 rounded-full text-blue-100 font-semibold"><i class="fas fa-circle text-green-400 text-[7px] mr-1"></i> Móvil Activo</span>
+        </div>
+    </header>
+
+    <div class="max-w-[1300px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
+        
+        <!-- ================= PANEL IZQUIERDO ================= -->
+        <div class="lg:col-span-4 space-y-4 sm:space-y-5">
+            
+            <!-- 1. Cliente -->
+            <div class="bg-white p-4 sm:p-5 rounded-lg border border-gray-200 card-shadow">
+                <div class="flex justify-between items-center text-header mb-3 sm:mb-4 border-b border-gray-100 pb-2">
+                    <i class="fas fa-user text-[#2f4f7d]"></i>
+                    <span class="text-sm font-semibold">1. Cliente</span>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="block text-[11px] sm:text-xs font-bold text-gray-500 mb-1 uppercase">Razón Social</label>
+                    <input type="text" id="razonSocial" placeholder="Nombre o Razón Social" class="w-full bg-[#f4f7f9] text-gray-700 border border-gray-200 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-[#2f4f7d]">
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[11px] sm:text-xs font-bold text-gray-500 mb-1 uppercase">Identificación</label>
+                        <select id="tipoDoc" class="w-full bg-[#f4f7f9] text-gray-700 border border-gray-200 rounded px-3 py-2.5 text-sm focus:outline-none">
+                            <option value="C.U.I.T.">C.U.I.T.</option>
+                            <option value="D.N.I.">D.N.I.</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[11px] sm:text-xs font-bold text-gray-500 mb-1 uppercase">Número</label>
+                        <input type="text" id="numeroDoc" placeholder="Número" class="w-full bg-[#f4f7f9] text-gray-700 border border-gray-200 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-[#2f4f7d]">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Artículo Activo -->
+            <div class="bg-white p-4 sm:p-5 rounded-lg border border-gray-200 card-shadow">
+                <div class="flex justify-between items-center text-header mb-3 sm:mb-4 border-b border-gray-100 pb-2">
+                    <i class="fas fa-boxes text-[#2f4f7d]"></i>
+                    <span class="text-sm font-semibold">2. Artículo Activo</span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div>
+                        <label class="block text-[11px] sm:text-xs font-bold text-gray-500 mb-1 uppercase">Artículo / Calidad</label>
+                        <input type="text" id="articulo" placeholder="Artículo" class="w-full bg-white text-gray-700 border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-[#2f4f7d]">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] sm:text-xs font-bold text-gray-500 mb-1 uppercase">Color</label>
+                        <input type="text" id="color" placeholder="Color" class="w-full bg-white text-gray-700 border border-gray-300 rounded px-3 py-2.5 text-sm focus:outline-none focus:border-[#2f4f7d]">
+                    </div>
+                </div>
+
+                <label class="block text-[11px] sm:text-xs font-bold text-gray-500 mb-2 uppercase">Unidad de venta</label>
+                <div class="flex space-x-1 sm:space-x-2 mb-4">
+                    <button type="button" id="btnKG" onclick="setUnidad('KG')" class="flex-1 py-2 text-xs sm:text-sm font-bold border rounded bg-[#2f4f7d] text-white border-[#2f4f7d] flex items-center justify-center gap-1"><i class="fas fa-weight-hanging"></i> KG</button>
+                    <button type="button" id="btnMTS" onclick="setUnidad('MTS')" class="flex-1 py-2 text-xs sm:text-sm font-bold border rounded bg-white text-gray-600 border-gray-300 flex items-center justify-center gap-1"><i class="fas fa-ruler"></i> MTS</button>
+                    <button type="button" id="btnUNI" onclick="setUnidad('UNI')" class="flex-1 py-2 text-xs sm:text-sm font-bold border rounded bg-white text-gray-600 border-gray-300 flex items-center justify-center gap-1"><i class="fas fa-box"></i> UNI</button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4 items-end">
+                    <div class="col-span-1">
+                        <label id="labelMedida" class="block text-[11px] sm:text-xs font-bold text-gray-500 mb-1 uppercase">Medida (KG)</label>
+                        <input type="number" id="medida" step="0.01" placeholder="0.00" class="w-full bg-white text-gray-700 border border-gray-300 rounded px-3 py-2.5 text-base sm:text-sm focus:outline-none focus:border-[#2f4f7d]" onkeypress="handleEnter(event)">
+                    </div>
+                    <div class="col-span-2">
+                        <button type="button" onclick="añadirMedida()" class="w-full btn-blue py-3 sm:py-2.5 rounded text-sm font-bold flex items-center justify-center gap-2">
+                            <i class="fas fa-plus"></i> Añadir Medida
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <button type="button" onclick="deshacerMedida()" class="w-full btn-orange py-2.5 rounded text-sm font-bold flex items-center justify-center gap-2">
+                        <i class="fas fa-undo"></i> Deshacer
+                    </button>
+                    <button type="button" onclick="limpiarFormulario()" class="w-full btn-red py-2.5 rounded text-sm font-bold flex items-center justify-center gap-2">
+                        <i class="fas fa-trash-alt"></i> Limpiar
+                    </button>
+                </div>
+
+                <button type="button" onclick="asignarPrecio()" class="w-full btn-gold py-3 rounded text-sm font-bold flex items-center justify-center gap-2">
+                    <i class="fas fa-dollar-sign"></i> Lote y Asignar Precio
+                </button>
+            </div>
+
+            <!-- 3. Observaciones -->
+            <div class="bg-white p-4 sm:p-5 rounded-lg border border-gray-200 card-shadow">
+                <div class="flex justify-between items-center text-header mb-3 border-b border-gray-100 pb-2">
+                    <i class="fas fa-comment-dots text-[#2f4f7d]"></i>
+                    <span class="text-sm font-semibold">3. Observaciones</span>
+                </div>
+                <textarea id="observaciones" rows="2" class="w-full bg-white text-gray-700 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#2f4f7d]" placeholder="Observaciones del despacho..."></textarea>
+            </div>
+
+        </div>
+
+        <!-- ================= PANEL DERECHO (Resumen) ================= -->
+        <div class="lg:col-span-8">
+            <div class="bg-white p-4 sm:p-6 rounded-lg border border-gray-200 card-shadow h-full flex flex-col">
+                
+                <!-- Area de Contenido -->
+                <div id="printContent" class="flex-grow">
+                    
+                    <div class="flex justify-between items-center mb-4 sm:mb-6 pb-2 border-b border-gray-100">
+                        <div class="text-[#2f4f7d] text-base sm:text-lg flex items-center gap-2">
+                            <i class="fas fa-list-check"></i>
+                            <span class="font-bold">Resumen de Despacho</span>
+                        </div>
+                        <div class="bg-[#1e3a63] text-white text-xs font-bold px-3 py-1 rounded-full">
+                            <span id="badgeBultos">0 Bultos</span>
+                        </div>
+                    </div>
+
+                    <!-- Contenedor de Tarjetas de Lotes -->
+                    <div id="lotesContainer" class="space-y-3 mb-6 min-h-[200px]">
+                        <div class="text-gray-400 text-center py-10 italic text-sm">No hay bultos cargados. Comienza a añadir medidas.</div>
+                    </div>
+
+                    <!-- Cuadro de Totales -->
+                    <div class="border-2 border-dashed border-gray-300 bg-[#f8fafc] p-4 sm:p-5 rounded-lg flex flex-col md:flex-row justify-between items-center gap-4">
+                        <div class="text-xs text-gray-600 space-y-1 w-full md:w-auto">
+                            <div class="font-bold text-gray-500 mb-1">ACUMULADO FÍSICO:</div>
+                            <div><i class="fas fa-weight-hanging w-4 text-gray-400"></i> Kilos: <strong class="text-gray-800" id="totKilos">0.00 KG</strong></div>
+                            <div><i class="fas fa-ruler w-4 text-gray-400"></i> Metros: <strong class="text-gray-800" id="totMetros">0.00 MTS</strong></div>
+                            <div><i class="fas fa-box w-4 text-gray-400"></i> Unidades: <strong class="text-gray-800" id="totUnis">0 UNI</strong></div>
+                        </div>
+                        
+                        <div class="h-px w-full md:h-16 md:w-px bg-gray-300 mx-0 md:mx-4"></div>
+                        
+                        <div class="text-center md:text-right w-full md:w-auto">
+                            <div class="text-xs font-bold text-[#2f4f7d] uppercase tracking-wide">Total General a Pagar</div>
+                            <div class="text-2xl sm:text-3xl font-black text-[#288351]" id="totGeneral">$ 0,00</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botón Generar PDF -->
+                <button type="button" onclick="generarPDF()" class="w-full btn-green mt-6 py-4 rounded-lg font-bold text-base sm:text-lg flex items-center justify-center gap-2 shadow-md">
+                    <i class="fas fa-file-pdf"></i> GENERAR PARKING LIST (PDF)
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Script de Lógica -->
+    <script>
+        let unidadActual = 'KG';
+        let lotes = []; 
+
+        function formatMoneda(val) {
+            return val.toLocaleString('es-AR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        }
+
+        function formatMedida(val, unidad) {
+            return unidad === 'UNI' ? val.toString() : val.toFixed(2);
+        }
+
+        function setUnidad(uni) {
+            unidadActual = uni;
+            ['KG', 'MTS', 'UNI'].forEach(u => {
+                let btn = document.getElementById(`btn${u}`);
+                btn.className = "flex-1 py-2 text-xs sm:text-sm font-bold border rounded bg-white text-gray-600 border-gray-300 flex items-center justify-center gap-1";
+            });
+            let btnActivo = document.getElementById(`btn${uni}`);
+            btnActivo.className = "flex-1 py-2 text-xs sm:text-sm font-bold border rounded bg-[#2f4f7d] text-white border-[#2f4f7d] flex items-center justify-center gap-1";
+            
+            document.getElementById('labelMedida').textContent = `MEDIDA (${uni})`;
+        }
+
+        function handleEnter(e) {
+            if(e.key === 'Enter') {
+                e.preventDefault();
+                añadirMedida();
+            }
+        }
+
+        function añadirMedida() {
+            const art = document.getElementById('articulo').value.trim().toUpperCase();
+            const col = document.getElementById('color').value.trim().toUpperCase();
+            const val = parseFloat(document.getElementById('medida').value);
+
+            if (!art) { alert("Debe ingresar un Artículo / Calidad."); return; }
+            if (isNaN(val) || val <= 0) { alert("Debe ingresar una medida válida mayor a 0."); return; }
+
+            let lote = lotes.find(l => l.articulo === art && l.color === col && l.unidad === unidadActual);
+            if (!lote) {
+                lote = { articulo: art, color: col, unidad: unidadActual, medidas: [], precio: 0 };
+                lotes.push(lote);
+            }
+            
+            lote.medidas.push(val);
+            document.getElementById('medida').value = '';
+            document.getElementById('medida').focus();
+            renderRightPanel();
+        }
+
+        function deshacerMedida() {
+            const art = document.getElementById('articulo').value.trim().toUpperCase();
+            const col = document.getElementById('color').value.trim().toUpperCase();
+            let lote = lotes.find(l => l.articulo === art && l.color === col && l.unidad === unidadActual);
+            
+            if (lote && lote.medidas.length > 0) {
+                lote.medidas.pop();
+                if (lote.medidas.length === 0) {
+                    lotes = lotes.filter(l => l !== lote);
+                }
+                renderRightPanel();
+            } else {
+                alert("No hay medidas en el lote activo para deshacer.");
+            }
+        }
+
+        function limpiarFormulario() {
+            document.getElementById('razonSocial').value = '';
+            document.getElementById('numeroDoc').value = '';
+            document.getElementById('articulo').value = '';
+            document.getElementById('color').value = '';
+            document.getElementById('medida').value = '';
+            document.getElementById('observaciones').value = '';
+            lotes = [];
+            renderRightPanel();
+        }
+
+        function asignarPrecio() {
+            const art = document.getElementById('articulo').value.trim().toUpperCase();
+            const col = document.getElementById('color').value.trim().toUpperCase();
+            
+            if (!art) { alert("Ingrese el nombre del artículo primero."); return; }
+
+            let lote = lotes.find(l => l.articulo === art && l.color === col && l.unidad === unidadActual);
+            if (!lote || lote.medidas.length === 0) {
+                alert("Primero debe añadir medidas a este artículo para poder asignarle un precio.");
+                return;
+            }
+
+            let p = prompt(`Ingrese el precio unitario para: ${art} - ${col}\n(en pesos por ${unidadActual})`, lote.precio > 0 ? lote.precio : "");
+            
+            if (p !== null) {
+                p = parseFloat(p.replace(',','.'));
+                if (!isNaN(p) && p >= 0) {
+                    lote.precio = p;
+                    renderRightPanel();
+                } else {
+                    alert("Precio inválido.");
+                }
+            }
+        }
+
+        function renderRightPanel() {
+            const container = document.getElementById('lotesContainer');
+            container.innerHTML = '';
+
+            let tk = 0, tm = 0, tu = 0, totalGen = 0, totalBultos = 0;
+
+            if (lotes.length === 0) {
+                container.innerHTML = '<div class="text-gray-400 text-center py-10 italic text-sm">No hay bultos cargados.</div>';
+            }
+
+            lotes.forEach(lote => {
+                let sumaLote = lote.medidas.reduce((a, b) => a + b, 0);
+                let subtotal = sumaLote * lote.precio;
+                
+                totalBultos += lote.medidas.length;
+                if (lote.unidad === 'KG') tk += sumaLote;
+                if (lote.unidad === 'MTS') tm += sumaLote;
+                if (lote.unidad === 'UNI') tu += sumaLote;
+                totalGen += subtotal;
+
+                let chipsHtml = lote.medidas.map(m => 
+                    `<span class="bg-white border border-gray-200 text-gray-500 text-xs px-2.5 py-1 rounded-full font-semibold shadow-sm">${formatMedida(m, lote.unidad)} ${lote.unidad}</span>`
+                ).join('');
+
+                let titulo = `${lote.articulo}`;
+                if (lote.color) titulo += ` - ${lote.color}`;
+
+                let cardHtml = `
+                    <div class="bg-[#f8fafc] border border-gray-200 rounded-md p-3.5 shadow-sm border-l-4 border-l-[#2f4f7d]">
+                        <div class="flex justify-between items-center mb-2">
+                            <div class="font-bold text-[#2f4f7d] text-xs sm:text-sm uppercase flex items-center">
+                                <i class="fas fa-circle text-[8px] text-blue-500 mr-2"></i> ${titulo}
+                            </div>
+                            <div class="font-bold text-[#288351] text-xs sm:text-sm">
+                                $ ${formatMoneda(subtotal)}
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-1.5 mb-3">
+                            ${chipsHtml}
+                        </div>
+                        
+                        <div class="flex justify-between items-center border-t border-gray-200 pt-2 text-[11px] text-gray-500 font-semibold">
+                            <span>Bultos: ${lote.medidas.length}</span>
+                            <span>Total: ${formatMedida(sumaLote, lote.unidad)} ${lote.unidad}</span>
+                            <span>Unit: $ ${formatMoneda(lote.precio)}</span>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHtml;
+            });
+
+            document.getElementById('badgeBultos').innerText = `${totalBultos} Bultos`;
+            document.getElementById('totKilos').innerText = `${tk.toFixed(2)} KG`;
+            document.getElementById('totMetros').innerText = `${tm.toFixed(2)} MTS`;
+            document.getElementById('totUnis').innerText = `${tu} UNI`;
+            document.getElementById('totGeneral').innerText = `$ ${formatMoneda(totalGen)}`;
+        }
+
+        function generarPDF() {
+            if (lotes.length === 0) {
+                alert("No hay artículos cargados para generar el PDF.");
+                return;
+            }
+
+            const printArea = document.createElement('div');
+            printArea.style.width = '794px';
+            printArea.style.backgroundColor = '#ffffff';
+            printArea.style.color = '#1f2937';
+            printArea.style.padding = '35px';
+            printArea.style.boxSizing = 'border-box';
+            printArea.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+            printArea.style.position = 'absolute';
+            printArea.style.left = '-9999px';
+            printArea.style.top = '0';
+
+            const razon = document.getElementById('razonSocial').value || "Consumidor Final";
+            const doc = document.getElementById('numeroDoc').value || "-";
+            const obs = document.getElementById('observaciones').value || "Sin observaciones";
+            const fecha = new Date().toLocaleDateString('es-AR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit' });
+
+            let lotesHtml = '';
+            lotes.forEach(lote => {
+                let sumaLote = lote.medidas.reduce((a, b) => a + b, 0);
+                let subtotal = sumaLote * lote.precio;
+                let titulo = lote.color ? `${lote.articulo} - ${lote.color}` : lote.articulo;
+                
+                let chipsStr = lote.medidas.map(m => 
+                    `<span style="display:inline-block; background:#ffffff; border:1px solid #cbd5e1; padding:3px 10px; margin:3px; border-radius:12px; font-size:11px; font-weight:600; color:#475569;">${formatMedida(m, lote.unidad)} ${lote.unidad}</span>`
+                ).join('');
+
+                lotesHtml += `
+                    <div style="background:#f8fafc; border:1px solid #e2e8f0; border-left:4px solid #2f4f7d; border-radius:6px; padding:12px; margin-bottom:12px;">
+                        <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size:13px;">
+                            <strong style="color:#2f4f7d; text-transform:uppercase;">${titulo}</strong>
+                            <strong style="color:#288351;">Subtotal: $ ${formatMoneda(subtotal)}</strong>
+                        </div>
+                        <div style="margin-bottom:8px;">${chipsStr}</div>
+                        <div style="display:flex; justify-content:space-between; font-size:11px; color:#64748b; border-top:1px solid #e2e8f0; padding-top:6px;">
+                            <span>Bultos: ${lote.medidas.length} Rls.</span>
+                            <span>Total Lote: ${formatMedida(sumaLote, lote.unidad)} ${lote.unidad}</span>
+                            <span>Precio: $ ${formatMoneda(lote.precio)}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            let tk = 0, tm = 0, tu = 0, totalGen = 0, totalBultos = 0;
+            lotes.forEach(l => {
+                let s = l.medidas.reduce((a,b)=>a+b,0);
+                totalBultos += l.medidas.length;
+                if(l.unidad==='KG') tk+=s;
+                if(l.unidad==='MTS') tm+=s;
+                if(l.unidad==='UNI') tu+=s;
+                totalGen += s * l.precio;
+            });
+
+            printArea.innerHTML = `
+                <div style="border-bottom: 3px solid #2f4f7d; padding-bottom: 12px; margin-bottom: 18px;">
+                    <h1 style="color: #2f4f7d; font-size: 26px; font-weight: 900; margin:0; line-height: 1;">LO DE CINTYA</h1>
+                    <p style="color: #5a738e; font-size: 11px; font-weight: bold; letter-spacing: 1.5px; margin: 4px 0 0 0;">PACKING LIST / REMITO DE DESPACHO CONSOLIDADO</p>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 18px; background: #f8fafc; padding: 10px 14px; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <div>
+                        <p style="margin: 3px 0;"><strong>Cliente / Razón Social:</strong> ${razon}</p>
+                        <p style="margin: 3px 0;"><strong>Identificación:</strong> ${document.getElementById('tipoDoc').value} ${doc}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <p style="margin: 3px 0;"><strong>Fecha de Emisión:</strong> ${fecha}</p>
+                        <p style="margin: 3px 0; color: #2f4f7d;"><strong>Total Bultos:</strong> ${totalBultos}</p>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <div style="font-size: 12px; font-weight: bold; color: #2f4f7d; margin-bottom: 8px; border-bottom: 1px solid #cbd5e1; padding-bottom: 4px; text-transform: uppercase;">Detalle de Lotes</div>
+                    ${lotesHtml}
+                </div>
+                
+                <div style="border: 2px dashed #cbd5e1; background: #f8fafc; padding: 12px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+                    <div style="font-size: 11px; color: #475569;">
+                        <div style="font-weight: bold; margin-bottom: 4px; color: #334155;">ACUMULADO FÍSICO:</div>
+                        <div>• Total Kilos: <strong>${tk.toFixed(2)} KG</strong></div>
+                        <div>• Total Metros: <strong>${tm.toFixed(2)} MTS</strong></div>
+                        <div>• Total Unidades: <strong>${tu} UNI</strong></div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 10px; font-weight: bold; color: #2f4f7d; text-transform: uppercase;">Total General a Pagar</div>
+                        <div style="font-size: 24px; font-weight: 900; color: #288351;">$ ${formatMoneda(totalGen)}</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 40px; font-size: 11px; color: #475569; padding: 10px; background: #f8fafc; border-left: 3px solid #2f4f7d; border-radius: 4px;">
+                    <strong>Observaciones:</strong> ${obs}
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 50px; padding: 0 40px; font-size: 11px; text-align: center;">
+                    <div style="border-top: 1px solid #333; width: 200px; padding-top: 6px;">Firma Despacho</div>
+                    <div style="border-top: 1px solid #333; width: 200px; padding-top: 6px;">Firma Recepción (Conforme)</div>
+                </div>
+            `;
+
+            document.body.appendChild(printArea);
+
+            html2canvas(printArea, { scale: 2, useCORS: true, logging: false }).then(canvas => {
+                document.body.removeChild(printArea);
+                
+                const imgData = canvas.toDataURL('image/jpeg', 0.98);
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                
+                const imgWidth = pageWidth;
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                pdf.addImage(imgData, 'JPEG', 0, 0, imgWidth, Math.min(imgHeight, pageHeight));
+                pdf.save(`PackingList_Lo_de_Cintya_${Date.now()}.pdf`);
+
+                limpiarFormulario();
+            }).catch(err => {
+                if(document.body.contains(printArea)) document.body.removeChild(printArea);
+                alert("Hubo un error al generar el PDF.");
+            });
+        }
+    </script>
+</body>
+</html>
